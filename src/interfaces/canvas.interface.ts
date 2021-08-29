@@ -1,4 +1,4 @@
-import presets from "@app/presets"
+import presets from "../presets"
 
 export interface CanvasOptions {
     type: keyof typeof presets,

@@ -1,5 +1,5 @@
 export default class Complex {
-    constructor(context: RenderingContext | null) {
+    constructor(context: CanvasRenderingContext2D | null) {
         
     }
 }

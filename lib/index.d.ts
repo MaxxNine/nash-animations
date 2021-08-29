@@ -1,4 +1,4 @@
-import { CanvasOptions } from "@interfaces/canvas.interface";
+import { CanvasOptions } from "./interfaces/canvas.interface";
 export default class NashCanvas {
     container: HTMLDivElement;
     canvas: HTMLCanvasElement;

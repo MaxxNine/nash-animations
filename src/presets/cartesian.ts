@@ -1,11 +1,16 @@
 export default class Cartesian {
-    context: RenderingContext | null;
+    ctx: CanvasRenderingContext2D;
 
-    constructor(context: RenderingContext | null) {
-        this.context = context;
+    constructor(context: CanvasRenderingContext2D | null) {
+        this.ctx = context as CanvasRenderingContext2D;
+        this.init();
     }
 
-    drawAxis(amount: number): void {
-        console.log(amount)
+    init(): void{
+        
+    }
+
+    drawVector(origin: number, end: number): void {
+        this.ctx.lineWidth = 2;
     }
 }

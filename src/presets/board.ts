@@ -1,5 +1,5 @@
 export default class Board {
-    constructor(context: RenderingContext | null) {
+    constructor(context: CanvasRenderingContext2D | null) {
         
     }
 }

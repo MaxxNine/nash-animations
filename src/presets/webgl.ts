@@ -1,5 +1,5 @@
 export default class Webgl {
-    constructor(context: RenderingContext | null) {
+    constructor(context: WebGLRenderingContext | null) {
         
     }
 }

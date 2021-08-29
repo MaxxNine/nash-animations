@@ -6,18 +6,18 @@ import Webgl from "./webgl";
 
 export default { 
     cartesian: (context: RenderingContext | null): Cartesian => {
-        return new Cartesian(context);
+        return new Cartesian(context as CanvasRenderingContext2D);
     },
     board: (context: RenderingContext | null): Board => {
-        return new Board(context);
+        return new Board(context as CanvasRenderingContext2D);
     },
     polar: (context: RenderingContext | null): Polar => {
-        return new Polar(context);
+        return new Polar(context as CanvasRenderingContext2D);
     },
     complex: (context: RenderingContext | null): Polar => {
-        return new Complex(context);
+        return new Complex(context as CanvasRenderingContext2D);
     },
     webgl: (context: RenderingContext | null): Webgl => {
-        return new Webgl(context);
+        return new Webgl(context as WebGL2RenderingContext);
     },
 }

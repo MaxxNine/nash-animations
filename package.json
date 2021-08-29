@@ -1,7 +1,7 @@
 {
   "name": "nash-animations",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Nash Canvas is a JavaScript Library made to create Math Animations.",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {

@@ -1,5 +1,5 @@
-import { ECanvasTypes } from "@enums/canvas.enum";
-import { CanvasOptions } from "@interfaces/canvas.interface";
+import { ECanvasTypes } from "../enums/canvas.enum";
+import { CanvasOptions } from "../interfaces/canvas.interface";
 
 
 export const defaultOptions: CanvasOptions = {
