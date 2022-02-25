@@ -1,0 +1,45 @@
+import { NashModel } from './../../interfaces/model.interface';
+import { ICartesian } from './cartesian.interface';
+import NashCanvas from './../../utils/classes/nash-canvas';
+export default class Cartesian implements NashModel {
+    private cnv?;
+    private ctx?;
+    private settings;
+    private cnvSettings;
+    private grid_size_x;
+    private grid_size_y;
+    private num_lines_x;
+    private num_lines_y;
+    private currentWidth;
+    private currentHeight;
+    private animationDuration;
+    private width;
+    private height;
+    private label_x;
+    private label_y;
+    private graphs;
+    private translation;
+    isAnimating: boolean;
+    isAnimatingReverse: boolean;
+    private GRID_SIZE;
+    constructor();
+    add(nashCanvas: NashCanvas<RenderingContext>): void;
+    draw2D(width: number, height: number, seconds?: number): void;
+    addGraph2D(exp: string, interval: number[]): void;
+    private plotGraph2D;
+    animate(): void;
+    private drawX;
+    private drawY;
+    private drawXTicks;
+    private drawYTicks;
+    setSettings(options: ICartesian): void;
+    private centerOrigin;
+    private setOrigin;
+    private translate;
+    zoom(zoom: number): void;
+    showGrid(toggle: boolean): void;
+    showGridX(toggle: boolean): void;
+    showGridY(toggle: boolean): void;
+    getNashInfo(): string;
+}
+//# sourceMappingURL=index.d.ts.map

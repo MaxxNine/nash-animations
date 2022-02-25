@@ -1,36 +1,63 @@
-import { defaultOptions } from "./config/canvasSettings";
+import { NashModel } from './interfaces/model.interface';
+import { EContextTypes } from './enums/canvas.enum';
 import presets from "./presets";
-import { CanvasOptions } from "./interfaces/canvas.interface";
-import { getCurrentContext } from "./utils/canvasUtils";
+import Bidimensional from './presets/bidimensional';
+import Tridimensional from './presets/tridimensional';
 
-const NashCanvas = (ct?: HTMLDivElement, opt?: CanvasOptions) =>  {
-    const container = ct || document.getElementById("nash-animations") as HTMLDivElement;
-    const canvas = document.createElement("canvas") as HTMLCanvasElement;
-    const options: CanvasOptions = {
-        type: opt?.type || defaultOptions.type,
-        bgColor: opt?.bgColor || defaultOptions.bgColor,
-        mainColor: opt?.mainColor || defaultOptions.mainColor,
-        primaryColor: opt?.primaryColor || defaultOptions.primaryColor,
-        secondaryColor: opt?.secondaryColor || defaultOptions.secondaryColor,
-        infoColor: opt?.infoColor || defaultOptions.infoColor
-    };
-    let context = canvas.getContext(getCurrentContext(options)); 
-    let mode;
-    
-    const start = (): void => {
-        canvas.style.backgroundColor = options.bgColor;
-        mode = presets[options.type](context);
+class NashAnimations {
+
+    private container: HTMLDivElement;
+    private nashCanvas: Bidimensional | Tridimensional;
+    private models: NashModel[];
+
+    constructor (ct?: HTMLDivElement, type?: EContextTypes)  {
+        this.container = ct || document.getElementById("nash-animations") as HTMLDivElement;
+        this.nashCanvas = presets[type || EContextTypes.BIDIMENSIONAL]();
+        this.models = [];
+        this.init()
+    }
+
+    private init (): void {
         try {
-            container.appendChild(canvas);
+            console.log("Welcome to Nash Animation"); 
+            this.nashCanvas.canvas.style.backgroundColor = this.nashCanvas.options.bgColor as string;
+            this.container.appendChild(this.nashCanvas.canvas);
         }
         catch (error) {
             console.error("You should add a div with #nash-animations");
         }
+    } 
+
+    start(): void {
+        requestAnimationFrame(this.animating.bind(this));
+    }
+    
+    add(model: NashModel): void {
+        model.add(this.nashCanvas);
+        this.models.push(model);
     }
 
-    return {
-        start,
+    resize(w: number, h:number): void {
+        this.nashCanvas.canvas.width = w;
+        this.nashCanvas.canvas.height = h;
+    }
+
+    private clearRect(): void {
+        const ctx = this.nashCanvas.ctx;
+        ctx.save();
+        ctx.setTransform(1,0,0,1,0,0);
+        // Will always clear the right space
+        ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+        ctx.restore();
+    }
+    
+    private animating(): void{
+        this.clearRect();
+        for(let model of this.models) {
+            model.animate();          
+        }
+        requestAnimationFrame(this.animating.bind(this));
     }
 } 
 
-export default NashCanvas;
+export default NashAnimations;

@@ -1,7 +1,4 @@
-export enum ECanvasTypes {
-    CARTESIAN = "cartesian",
-    BOARD = "board",
-    POLAR = "polar",
-    COMPLEX = "complex",
-    WEBGL = "webgl",
+export enum EContextTypes {
+    BIDIMENSIONAL = "bidimensional",
+    TRIDIMENSIONAL = "tridimensional",
 }

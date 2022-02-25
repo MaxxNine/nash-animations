@@ -1,0 +1,1 @@
+{"version":3,"file":"nash-canvas.d.ts","sourceRoot":"","sources":["../../../src/utils/classes/nash-canvas.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,cAAc,EAAE,MAAM,mCAAmC,CAAC;AAGnE,MAAM,CAAC,OAAO,CAAC,QAAQ,OAAO,UAAU,CAAC,WAAW,SAAS,gBAAgB;IAEzE,MAAM,EAAE,iBAAiB,CAAC;IAC1B,OAAO,EAAE,cAAc,CAAC;IACxB,GAAG,EAAE,WAAW,CAAC;gBAEL,GAAG,CAAC,EAAE,cAAc,EAAE,MAAM,CAAC,EAAE,iBAAiB;CAgB/D"}

@@ -1,8 +1,5 @@
-export declare enum ECanvasTypes {
-    CARTESIAN = "cartesian",
-    BOARD = "board",
-    POLAR = "polar",
-    COMPLEX = "complex",
-    WEBGL = "webgl"
+export declare enum EContextTypes {
+    BIDIMENSIONAL = "bidimensional",
+    TRIDIMENSIONAL = "tridimensional"
 }
 //# sourceMappingURL=canvas.enum.d.ts.map

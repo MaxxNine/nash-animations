@@ -1,12 +1,16 @@
-import { CanvasOptions } from "./interfaces/canvas.interface";
-export default class NashCanvas {
-    container: HTMLDivElement;
-    canvas: HTMLCanvasElement;
-    options: CanvasOptions;
-    context: RenderingContext | null;
-    mode: any;
-    constructor(options?: CanvasOptions);
-    init(): void;
-    getCurrentContext(): string;
+import { NashModel } from './interfaces/model.interface';
+import { EContextTypes } from './enums/canvas.enum';
+declare class NashAnimations {
+    private container;
+    private nashCanvas;
+    private models;
+    constructor(ct?: HTMLDivElement, type?: EContextTypes);
+    private init;
+    start(): void;
+    add(model: NashModel): void;
+    resize(w: number, h: number): void;
+    private clearRect;
+    private animating;
 }
+export default NashAnimations;
 //# sourceMappingURL=index.d.ts.map
