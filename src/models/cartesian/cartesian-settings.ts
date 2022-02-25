@@ -1,6 +1,6 @@
 export const cartesianDefaultSettings = {
-    amountX: 10,
-    amountY: 10,
+    amountX: 5,
+    amountY: 5,
     originX: -1,
     originY: -1,
     densityX: 1,
