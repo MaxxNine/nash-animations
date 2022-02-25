@@ -108,7 +108,7 @@ export default class Cartesian implements NashModel {
             for(let v of this.graphs) {
                 ctx.save();
                 this.centerOrigin();
-                this.plotGraph2D(v.exp, v.color);
+                this.plotGraph2D(v);
                 ctx.restore();
             }
         }
@@ -332,15 +332,21 @@ export default class Cartesian implements NashModel {
 
     // GRAPH PLOT
 
-    addGraph2D(exp: string): void {
+    addGraph2D(exp: string, animDuration = 0): void {
         if (this.graphs.length > 3)
             throw Error('Please, delete a graph');
         
         let color = this.COLORS[this.graphs.length];
-        this.graphs.push({exp, color});
+        animDuration = animDuration*60;
+        this.graphs.push({exp, color, animDuration, currentStatus: animDuration});
     }
 
-    private plotGraph2D(exp: string, color: string) {
+    removeGraph2D(exp: string): void {
+        this.graphs = this.graphs.filter(graph => graph.exp !== exp);
+    }
+
+    private plotGraph2D(graph: any) {
+        const { exp, color, animDuration, currentStatus } = graph;
         let interval = this.currentInterval;
         let density = 0.01;
         let results = solveFunction(exp, interval, density);
@@ -356,8 +362,16 @@ export default class Cartesian implements NashModel {
         this.settings.originY = Math.floor(this.num_lines_y/2);        
         ctx.lineWidth = 2;
         ctx.strokeStyle = color;
+        let currentPoint =  animDuration - currentStatus;
+        if (animDuration <= 0 )
+            currentPoint = 1;
+        else {
+            currentPoint = currentPoint/animDuration;
+            graph.currentStatus -= 1;
+        }
+        const limit = results.length*currentPoint;
         ctx.beginPath();
-        for (let i = 0; i < results.length; i++) {
+        for (let i = 0; i < limit; i++) {
             let y = -(results[i]*this.grid_size_y);
             let x = (xMin*this.grid_size_x) + (this.settings.densityX)*i;
             if(i==0) ctx.moveTo(x, y)

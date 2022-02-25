@@ -46,7 +46,8 @@ export default class Cartesian implements NashModel {
     private clearRect;
     transfer(canvas: HTMLCanvasElement, context: RenderingContext): void;
     getNashInfo(): string;
-    addGraph2D(exp: string): void;
+    addGraph2D(exp: string, animDuration?: number): void;
+    removeGraph2D(exp: string): void;
     private plotGraph2D;
 }
 //# sourceMappingURL=index.d.ts.map
