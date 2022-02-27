@@ -1,4 +1,4 @@
-import { NashModel } from './interfaces/model.interface';
+import { INashModel } from './interfaces/model.interface';
 import { EContextTypes } from './enums/canvas.enum';
 import presets from "./presets";
 import Bidimensional from './presets/bidimensional';
@@ -8,7 +8,7 @@ class NashAnimations {
 
     private container: HTMLDivElement;
     private nashCanvas: Bidimensional | Tridimensional;
-    private models: NashModel[];
+    private models: INashModel[];
 
     constructor (ct?: HTMLDivElement, type?: EContextTypes)  {
         this.container = ct || document.getElementById("nash-animations") as HTMLDivElement;
@@ -32,7 +32,7 @@ class NashAnimations {
         requestAnimationFrame(this.animating.bind(this));
     }
     
-    add(model: NashModel): void {
+    add(model: INashModel): void {
         model.add(this.nashCanvas);
         this.models.push(model);
     }
