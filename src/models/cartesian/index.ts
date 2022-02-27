@@ -1,16 +1,15 @@
 import { solveFunction } from './../../utils/functions/index';
-import { NashModel } from './../../interfaces/model.interface';
+import { INashModel } from './../../interfaces/model.interface';
 import { canvasDefaultSettings } from './../../config/canvas/canvas-settings';
 import { CanvasSettings } from './../../interfaces/canvas.interface';
 import { cartesianDefaultSettings } from './cartesian-settings';
 import { ICartesian } from './cartesian.interface';
 import NashCanvas from './../../utils/classes/nash-canvas';
 import { getNearHighAndRoundedNumber, isNumber } from './../../utils/math';
+import NashModel from './../..//utils/classes/nash-models';
 
-export default class Cartesian implements NashModel {
+export default class Cartesian extends NashModel implements INashModel {
     
-    private cnv?: HTMLCanvasElement;
-    private ctx?: RenderingContext;
     private settings: ICartesian;
     private cnvSettings: CanvasSettings;
     private grid_size_x: number;
@@ -39,6 +38,7 @@ export default class Cartesian implements NashModel {
 
     
     constructor() {
+        super();
         this.settings = cartesianDefaultSettings;
         this.cnvSettings = canvasDefaultSettings;
         this.isAnimating = false;
@@ -86,7 +86,7 @@ export default class Cartesian implements NashModel {
     // Cartesian 
 
     animate(): void {
-        const ctx = this.getCanvas();
+        const ctx = this.getCanvas2D();
         const showX = this.settings.showGridX as boolean;
         const showY = this.settings.showGridY as boolean;
         const x_origin = this.settings.originX as number;
@@ -163,7 +163,7 @@ export default class Cartesian implements NashModel {
     }  
     
     private drawXTicks() {
-        const ctx = this.getCanvas();
+        const ctx = this.getCanvas2D();
         const oY = this.settings.originY as number;
         let start = 1;
         let endNegative = oY + (this.translation.x/this.grid_size_x);
@@ -206,7 +206,7 @@ export default class Cartesian implements NashModel {
     }
 
     private drawYTicks() {
-        const ctx = this.getCanvas();
+        const ctx = this.getCanvas2D();
         const oX = this.settings.originX as number;
         let start = 1;
         let endNegative = oX + (this.translation.y/this.grid_size_y);
@@ -259,14 +259,8 @@ export default class Cartesian implements NashModel {
         this.setOrigin(oY*this.grid_size_x, oX*this.grid_size_y)
     } 
 
-    private setOrigin(x: number, y: number) {
-        const ctx = this.getCanvas();
-        ctx.beginPath();
-        ctx.translate(x, y);
-    }
-
     translate(x: number, y: number): void {
-        const ctx = this.getCanvas();
+        const ctx = this.getCanvas2D();
         ctx.beginPath();
         ctx.translate(x, y);
         this.translation = {
@@ -304,32 +298,6 @@ export default class Cartesian implements NashModel {
         this.settings = {...this.settings, ...options};  
     }
 
-    // Utils
-
-    private getCanvas(): CanvasRenderingContext2D {
-        return this.ctx as CanvasRenderingContext2D;
-    }
-
-    private clearRect(): void {
-        const ctx = this.getCanvas();
-        ctx.save();
-        ctx.setTransform(1,0,0,1,0,0);
-        // Will always clear the right space
-        ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
-        ctx.restore();
-    }
-
-    transfer(canvas: HTMLCanvasElement, context: RenderingContext): void {
-        this.cnv = canvas;
-        this.ctx = context;
-        this.clearRect();
-    }
-
-    getNashInfo(): string{
-        return `Canvas width: ${this.cnv?.width} \n Canvas height: ${this.cnv?.height}`;
-    }
-    
-
     // GRAPH PLOT
 
     addGraph2D(exp: string, animDuration = 0): void {
@@ -352,7 +320,7 @@ export default class Cartesian implements NashModel {
         let results = solveFunction(exp, interval, density);
         const [yMin, yMax] = [Math.min(...results), Math.max(...results)];
         const [xMin, xMax] = interval;
-        const ctx = this.getCanvas();
+        const ctx = this.getCanvas2D();
         const { highValue, roundedNumber } = getNearHighAndRoundedNumber(yMax);
         this.settings.densityY = (this.height)/(Math.abs(highValue*2));
         this.settings.densityX = (this.width)/Math.abs((interval[1] - interval[0])/density);

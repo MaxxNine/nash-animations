@@ -1,6 +1,6 @@
 import NashCanvas from 'src/utils/classes/nash-canvas';
 
-export interface NashModel {
+export interface INashModel {
     add(canvas: NashCanvas<RenderingContext>): void,
     animate(): void,
     isAnimating: boolean,
